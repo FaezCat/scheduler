@@ -8,7 +8,11 @@ import { useState, useEffect } from "react";
 
 import Appointment from "./Appointment";
 
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterviewersForDay,
+  getInterview,
+} from "helpers/selectors";
 
 import { Fragment } from "react";
 
@@ -24,8 +28,6 @@ export default function Application(props) {
 
   const setDay = (day) => setState({ ...state, day });
   // const setDays = (days) => setState((prev) => ({ ...prev, days }));
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   useEffect(() => {
     Promise.all([
@@ -62,6 +64,12 @@ export default function Application(props) {
     });
   }, []);
 
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
+
+  console.log("Daily Interviewers", dailyInterviewers);
+  console.log("state:", state);
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -90,6 +98,7 @@ export default function Application(props) {
               <Appointment
                 key={appointment.id}
                 interview={interview}
+                interviewers={dailyInterviewers}
                 {...appointment}
               />
             );
