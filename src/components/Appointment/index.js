@@ -8,6 +8,7 @@ import Status from "./Status";
 import { Fragment } from "react";
 import useVisualMode from "hooks/useVisualMode";
 import Confirm from "components/Appointment/Confirm";
+import Error from "components/Appointment/Error";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -16,27 +17,36 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
-  async function save(name, interviewer) {
+  function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer,
     };
     transition(SAVING);
-    await props.bookInterview(props.id, interview);
-    transition(SHOW);
+    props
+      .bookInterview(props.id, interview)
+      .then(() => {
+        transition(SHOW);
+      })
+      .catch((error) => transition(ERROR_SAVE, true));
   }
 
   function deleteAppointment(id) {
     transition(DELETING);
-    props.cancelInterview(props.id).then(() => {
-      transition(EMPTY);
-    });
+    props
+      .cancelInterview(props.id)
+      .then(() => {
+        transition(EMPTY);
+      })
+      .catch((error) => transition(ERROR_DELETE, true));
   }
 
   function edit() {
@@ -65,7 +75,7 @@ export default function Appointment(props) {
           <Confirm
             onConfirm={deleteAppointment}
             onCancel={back}
-            message="Would you like to delete?"
+            message="Are you sure you would you like to delete?"
           />
         )}
         {mode === CREATE && (
@@ -83,6 +93,12 @@ export default function Appointment(props) {
             student={props.interview.student}
             interviewer={props.interview.interviewer}
           />
+        )}
+        {mode === ERROR_SAVE && (
+          <Error message="Could not save appointment." onClose={back} />
+        )}
+        {mode === ERROR_DELETE && (
+          <Error message="Could not delete appointment." onClose={back} />
         )}
       </Fragment>
     </article>
