@@ -26,7 +26,7 @@ export function getInterviewersForDay(state, day) {
     (individualDay) => individualDay.name === day
   );
 
-  const returnArray = [];
+  const returnArray = {};
   let filteredInterviewers = null;
 
   if (filteredDays.length !== 0) {
@@ -36,7 +36,7 @@ export function getInterviewersForDay(state, day) {
   if (filteredInterviewers) {
     for (const interviewID of filteredInterviewers) {
       if (state.interviewers[interviewID]) {
-        returnArray.push(state.interviewers[interviewID]);
+        returnArray[interviewID] = state.interviewers[interviewID];
       }
     }
   }

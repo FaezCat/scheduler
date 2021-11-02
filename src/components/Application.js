@@ -22,12 +22,39 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {},
+    appointments: {
+      1: {
+        id: 1,
+        time: "12pm",
+        interview: null,
+      },
+    },
     interviewers: {},
   });
 
+  function bookInterview(id, interview) {
+    console.log({ id, interview });
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    // setState((prevState) => ({ ...prevState, appointments }));
+    setState({ ...state, appointments });
+    return axios.put(`/api/appointments/${id}`, appointment);
+  }
+
+  function cancelInterview(id) {
+    console.log("id to cancel is:", id);
+
+    return axios.delete(`/api/appointments/${id}`);
+  }
+
   const setDay = (day) => setState({ ...state, day });
-  // const setDays = (days) => setState((prev) => ({ ...prev, days }));
 
   useEffect(() => {
     Promise.all([
@@ -53,22 +80,11 @@ export default function Application(props) {
         appointments: all[1].data,
         interviewers: all[2].data,
       }));
-
-      // console.log(all[0]); // first
-      // console.log(all[1]); // second
-      // console.log(all[2]); // third
-
-      // const [first, second, third] = all;
-
-      // console.log(first, second, third);
     });
   }, []);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-
-  console.log("Daily Interviewers", dailyInterviewers);
-  console.log("state:", state);
 
   return (
     <main className="layout">
@@ -97,6 +113,8 @@ export default function Application(props) {
             return (
               <Appointment
                 key={appointment.id}
+                bookInterview={bookInterview}
+                cancelInterview={cancelInterview}
                 interview={interview}
                 interviewers={dailyInterviewers}
                 {...appointment}
