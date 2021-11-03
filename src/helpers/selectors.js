@@ -26,7 +26,7 @@ export function getInterviewersForDay(state, day) {
     (individualDay) => individualDay.name === day
   );
 
-  const returnArray = {};
+  const returnObject = {};
   let filteredInterviewers = null;
 
   if (filteredDays.length !== 0) {
@@ -36,12 +36,12 @@ export function getInterviewersForDay(state, day) {
   if (filteredInterviewers) {
     for (const interviewID of filteredInterviewers) {
       if (state.interviewers[interviewID]) {
-        returnArray[interviewID] = state.interviewers[interviewID];
+        returnObject[interviewID] = state.interviewers[interviewID];
       }
     }
   }
   // console.log("interviewers return array:", returnArray);
-  return returnArray;
+  return returnObject;
 }
 
 export function getInterview(state, interview) {
