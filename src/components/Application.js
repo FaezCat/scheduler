@@ -4,8 +4,6 @@ import "components/Application.scss";
 
 import DayList from "./DayList";
 
-import { useEffect } from "react";
-
 import Appointment from "./Appointment";
 
 import useApplicationData from "hooks/useApplicationData";
@@ -17,8 +15,6 @@ import {
 } from "helpers/selectors";
 
 import { Fragment } from "react";
-
-import axios from "axios";
 
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
