@@ -42,42 +42,25 @@ export default function useApplicationData() {
     return newDays;
   }
 
-  // function bookInterview(id, interview) {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     // interview: { ...interview },
-  //     interview,
-  //   };
-  //   const appointments = { ...state.appointments };
-  //   appointments[id].interview = interview;
-  //   console.log("appointment:", appointment);
-
-  //   setState({ ...state, appointments });
-  //   console.log("appointments post state change:", state.appointments);
-  //   return axios
-  //     .put(`/api/appointments/${id}`, appointment)
-  //     .then(setDays(spotsRemaining()));
-  // }
-
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview,
     };
 
-    // TODO: review this code and why it's actually changing the state
-    const appointmentskek = { ...state.appointments };
-    appointmentskek[id].interview = interview;
+    // TODO: review this code
+    const appointments = { ...state.appointments };
+    appointments[id].interview = interview;
 
-    setState((prevState) => {
-      return {
-        ...prevState,
-        appointments: {
-          ...prevState.appointments,
-          [id]: { ...prevState.appointments[id], interview },
-        },
-      };
-    });
+    // setState((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     appointments: {
+    //       ...prevState.appointments,
+    //       [id]: { ...prevState.appointments[id], interview },
+    //     },
+    //   };
+    // });
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then(setDays(spotsRemaining()));

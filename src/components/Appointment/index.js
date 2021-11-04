@@ -52,7 +52,7 @@ export default function Appointment(props) {
   function edit() {
     transition(EDIT);
   }
-
+  // console.log("props:", props);
   return (
     <article className="appointment">
       <Fragment>
