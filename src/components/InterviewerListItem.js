@@ -4,8 +4,6 @@ import "components/InterviewerListItem.scss";
 
 import classNames from "classnames";
 
-// setInterviewer:function - is run when the InterviewerListItem is clicked. This function receives the interviewer's id as an argument. It sets the selected interviewer.
-
 function InterviewerListItem(props) {
   const interviewerName = props.name;
 

@@ -16,6 +16,7 @@ import {
 
 import { Fragment } from "react";
 
+// main application function
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();

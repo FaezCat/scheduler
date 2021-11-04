@@ -20,11 +20,14 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
+// the main Appointment component makes use of the other components listed within the Appointment folder
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+  // this function is triggered upon saving an appointment which subsequently updates our visual mode, mode history, and updates the PSQL database
+  // additionally, the "SAVING" transition below is responsible for the visual "loading" display as the database is being updated
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -39,6 +42,8 @@ export default function Appointment(props) {
       .catch((error) => transition(ERROR_SAVE, true));
   }
 
+  // this function is triggered upon deleting an appointment which subsequently updates our visual mode, mode history, and updates the PSQL database
+  // additionally, the "DELETING" transition below is responsible for the visual "loading" display as the database is being updated
   function deleteAppointment(id) {
     transition(DELETING);
     props
@@ -52,7 +57,7 @@ export default function Appointment(props) {
   function edit() {
     transition(EDIT);
   }
-  // console.log("props:", props);
+  // state-dependent (mode) component rendering
   return (
     <article className="appointment">
       <Fragment>

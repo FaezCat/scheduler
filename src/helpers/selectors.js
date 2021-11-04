@@ -40,10 +40,11 @@ export function getInterviewersForDay(state, day) {
       }
     }
   }
-  // console.log("interviewers return array:", returnArray);
   return returnObject;
 }
 
+// this function generates interview objects which are later included within corresponding appointment objects
+// please ignore the various commented out console.logs - these were included formerly for some debugging and were kept for the purpose of future testing
 export function getInterview(state, interview) {
   // console.log("state:", state);
   // console.log("interview:", interview);
