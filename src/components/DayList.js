@@ -1,6 +1,7 @@
 import React from "react";
 import DayListItem from "./DayListItem";
 
+// the component displays on the left hand side of the screen for Mon-Fri (essentially a container for each individual daylistitem)
 export default function DayList(props) {
   const listItems = props.days.map((item) => (
     <DayListItem

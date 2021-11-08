@@ -1,5 +1,6 @@
 import React from "react";
 
+// this component is rendered when an appointment slot is available (empty)
 export default function Empty(props) {
   const { onAdd } = props;
 

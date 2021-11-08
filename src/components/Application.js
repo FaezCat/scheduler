@@ -16,7 +16,7 @@ import {
 
 import { Fragment } from "react";
 
-// main application function
+// main application function that renders both the daylist on the left of the screen (Mon-Fri) and all appointment slots / bookings on the right
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
@@ -46,8 +46,7 @@ export default function Application(props) {
         <Fragment>
           {dailyAppointments.map((appointment) => {
             const interview = getInterview(state, appointment.interview);
-            // console.log("interview:", interview);
-            // slightly concerned that {interview} isn't rendering correctly
+
             return (
               <Appointment
                 key={appointment.id}

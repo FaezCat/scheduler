@@ -1,5 +1,6 @@
 import React from "react";
 
+// this component is displayed as appointments are being saved or deleted - it is the loading screen
 export default function Status(props) {
   const { message } = props;
 

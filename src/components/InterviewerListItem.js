@@ -4,6 +4,7 @@ import "components/InterviewerListItem.scss";
 
 import classNames from "classnames";
 
+// this component renders each individual interviewer within the interviewerlist component
 function InterviewerListItem(props) {
   const interviewerName = props.name;
 

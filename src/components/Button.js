@@ -4,6 +4,7 @@ import "components/Button.scss";
 
 import classNames from "classnames";
 
+// this is the main modular "button" component used in various parts of the application
 export default function Button(props) {
   const buttonClass = classNames("button", {
     "button--confirm": props.confirm,

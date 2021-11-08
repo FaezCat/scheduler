@@ -30,6 +30,5 @@ export default function useVisualMode(initial) {
       setMode(modes[modes.length - 1]);
     }
   }
-  // console.log({ mode, initial });
   return { mode, transition, back };
 }

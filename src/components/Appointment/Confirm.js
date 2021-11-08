@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "components/Button";
 
+// this component is rendered when deleting an appointment to give you the ability to confirm or deny the cancellation
 export default function Confirm(props) {
   const { message, onConfirm, onCancel } = props;
 

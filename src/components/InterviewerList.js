@@ -1,16 +1,11 @@
 import React from "react";
 import "components/InterviewerList.scss";
 import InterviewerListItem from "./InterviewerListItem";
-import PropTypes from "prop-types";
 
+// this component renders the list of available interviewers for each day
 export default function InterviewerList(props) {
-  // InterviewerList.propTypes = {
-  //   interviewers: PropTypes.object.isRequired,
-  // };
-
   const interviewListItems = Object.values(props.interviewers).map(
     (interviewer) => {
-      // console.log({ interviewer, props });
       return (
         <InterviewerListItem
           key={interviewer.id}

@@ -20,7 +20,7 @@ export default function useApplicationData() {
   const setDays = (days) => setState({ ...state, days });
 
   // This function is responsible for calculating the remaining appointment spots per day (both initially and upon creating/deleting appointments)
-  // additionally, note that this function returns the entire "days" state object for the purpose of then updating "days" entirely
+  // note that this function returns the entire "days" state object for the purpose of then updating "days" entirely
   function spotsRemaining() {
     const index = state.days.findIndex((d) => d.name === state.day);
     const day = state.days[index];
@@ -52,16 +52,6 @@ export default function useApplicationData() {
     const appointments = { ...state.appointments };
     appointments[id].interview = interview;
 
-    // A second option for updating interview - the utilized above was recommended by a mentor
-    // setState((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     appointments: {
-    //       ...prevState.appointments,
-    //       [id]: { ...prevState.appointments[id], interview },
-    //     },
-    //   };
-    // });
     return axios
       .put(`/api/appointments/${id}`, appointment)
       .then(setDays(spotsRemaining()));
@@ -81,13 +71,11 @@ export default function useApplicationData() {
     Promise.all([
       Promise.resolve(
         axios.get("/api/days").then((response) => {
-          // console.log("days data:", response);
           return response;
         })
       ),
       Promise.resolve(
         axios.get("/api/appointments").then((response) => {
-          // console.log("appointments data:", response);
           return response;
         })
       ),

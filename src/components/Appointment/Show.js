@@ -1,5 +1,6 @@
 import React from "react";
 
+// this component is rendered for all booked appoitments
 export default function Show(props) {
   const { student, interviewer, onEdit, onDelete } = props;
 

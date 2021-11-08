@@ -1,5 +1,6 @@
 import React from "react";
 
+// this header displays for all time slots (whether available or booked)
 export default function Header(props) {
   return (
     <header className="appointment__time">

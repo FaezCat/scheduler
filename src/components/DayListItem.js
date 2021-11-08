@@ -2,8 +2,9 @@ import React from "react";
 import "components/DayListItem.scss";
 import classNames from "classnames";
 
+// this function renders each individual daylistitem displayed on the left hand side of the screen
 export default function DayListItem(props) {
-  // this simple function dictates the text displaying the # of spots remaining
+  // this simple function dictates the text displaying the # of spots remaining beneath each day
   function formatSpots() {
     if (props.spots === 0) {
       return "no spots remaining";

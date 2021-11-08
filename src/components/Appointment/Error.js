@@ -1,5 +1,6 @@
 import React from "react";
 
+// this component is rendered if there are errors writing to the database for the application
 export default function Error(props) {
   const { message, onClose } = props;
 
