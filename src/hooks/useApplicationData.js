@@ -17,15 +17,14 @@ export default function useApplicationData() {
 
   // These functions are responsible for setting the state of both "day" and "days", respectively
   const setDay = (day) => setState({ ...state, day });
-  const setDays = (days) => setState({ ...state, days });
 
   // This function is responsible for calculating the remaining appointment spots per day (both initially and upon creating/deleting appointments)
   // note that this function returns the entire "days" state object for the purpose of then updating "days" entirely
-  function spotsRemaining() {
+  function spotsRemaining(appointments) {
     const index = state.days.findIndex((d) => d.name === state.day);
     const day = state.days[index];
 
-    const appointments = { ...state.appointments };
+    // const appointments = { ...state.appointments };
 
     let spots = 0;
     for (const id of day.appointments) {
@@ -50,21 +49,28 @@ export default function useApplicationData() {
     };
 
     const appointments = { ...state.appointments };
-    appointments[id].interview = interview;
+    appointments[id] = appointment;
 
-    return axios
-      .put(`/api/appointments/${id}`, appointment)
-      .then(setDays(spotsRemaining()));
+    return axios.put(`/api/appointments/${id}`, appointment).then(() => {
+      const newDays = spotsRemaining(appointments);
+      setState({ ...state, appointments, days: newDays });
+    });
   };
 
   // this function is triggered each time an interview is cancelled
   function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
     const appointments = { ...state.appointments };
-    appointments[id].interview = null;
-    setState({ ...state, appointments });
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then(setDays(spotsRemaining()));
+    appointments[id] = appointment;
+
+    return axios.delete(`/api/appointments/${id}`).then(() => {
+      const newDays = spotsRemaining(appointments);
+      setState({ ...state, appointments, days: newDays });
+    });
   }
 
   useEffect(() => {

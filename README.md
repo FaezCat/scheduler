@@ -12,6 +12,12 @@ Interview Scheduler is a simple, single-page, React-based application which perm
 
 Install dependencies with `npm install`.
 
+## You will need to follow the set of instructions contained in the link below (in the README file specifically) in order to create and run the db server required for this application:
+
+https://github.com/lighthouse-labs/scheduler-api
+
+Please note that both the scheduler-api and interview scheduler applications will need to be running concurrently in order for the scheduler to function correctly
+
 ## Running Webpack Development Server
 
 ```sh
